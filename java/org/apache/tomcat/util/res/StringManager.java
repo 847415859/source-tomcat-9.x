@@ -156,6 +156,11 @@ public class StringManager {
             value = key;
         }
 
+        try{
+            /** 修改编码，防止tomcat启动时控制台日志中文乱码*/
+            value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
+        }catch (Exception e){}
+
         MessageFormat mf = new MessageFormat(value);
         mf.setLocale(locale);
         return mf.format(args, new StringBuffer(), null).toString();
